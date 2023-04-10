@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Matrix Example</title>
+    <style>
+      body {
+        background-color: black;
+        color: green;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      // Set canvas size
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Set font size
+      var fontSize = 16;
+      ctx.font = fontSize + 'px monospace';
+
+      // Calculate number of columns
+      var columns = Math.floor(canvas.width / fontSize);
+
+      // Initialize drop positions
+      var drops = [];
+      for (var i = 0; i < columns; i++) {
+        drops[i] = 0;
+      }
+
+      // Draw matrix
+      function drawMatrix() {
+        // Set background color and transparency
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Set text color
+        ctx.fillStyle = 'green';
+
+        // Loop over columns
+        for (var i = 0; i < drops.length; i++) {
+          // Draw text
+          var text = '0 1 0 1 0';
+	
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          // Randomly reset drop position
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+            drops[i] = 0;
+          }
+
+          // Increment drop position
+          drops[i]++;
+        }
+      }
+
+      // Start animation
+      setInterval(drawMatrix, 30);
+    </script>
+  </body>
+</html>
